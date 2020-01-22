@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "no.ssb.dapla.secret.service.protobuf";
+
+service SecretService {
+    rpc GetKey (GetKeyRequest) returns (GetKeyResponse);
+}
+
+message GetKeyRequest {
+    string keyId = 1;
+}
+
+message GetKeyResponse {
+    PseudoKey key = 1;
+}
+
+message PseudoKey {
+    string key = 1;
+}
