@@ -36,5 +36,5 @@ message DeleteKeyRequest {
 }
 
 message DeleteKeyResponse {
-
+    int32 rowsAffected = 1;
 }
