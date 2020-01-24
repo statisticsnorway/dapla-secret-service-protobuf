@@ -5,6 +5,12 @@ option java_package = "no.ssb.dapla.secret.service.protobuf";
 
 service SecretService {
     rpc GetKey (GetKeyRequest) returns (GetKeyResponse);
+    rpc CreateKey (CreateKeyRequest) returns (CreateKeyResponse);
+    rpc DeleteKey (DeleteKeyRequest) returns (DeleteKeyResponse);
+}
+
+message PseudoKey {
+    string key = 1;
 }
 
 message GetKeyRequest {
@@ -12,9 +18,23 @@ message GetKeyRequest {
 }
 
 message GetKeyResponse {
-    PseudoKey key = 1;
+    string keyId = 1;
+    PseudoKey key = 2;
 }
 
-message PseudoKey {
-    string key = 1;
+message CreateKeyRequest {
+    string keyId = 1;
+    PseudoKey key = 2;
+}
+
+message CreateKeyResponse {
+    string keyId = 1;
+}
+
+message DeleteKeyRequest {
+    string keyId = 1;
+}
+
+message DeleteKeyResponse {
+
 }
