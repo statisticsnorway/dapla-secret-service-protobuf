@@ -4,59 +4,77 @@ option java_multiple_files = true;
 option java_package = "no.ssb.dapla.secret.service.protobuf";
 
 service SecretService {
-    rpc GetKey (GetKeyRequest) returns (GetKeyResponse);
-    rpc CreateKey (CreateKeyRequest) returns (CreateKeyResponse);
-    rpc DeleteKey (DeleteKeyRequest) returns (DeleteKeyResponse);
-    rpc CreateOrGetKey (CreateOrGetKeyRequest) returns (CreateOrGetKeyResponse);
+    rpc GetSecret (GetSecretRequest) returns (GetSecretResponse);
+    rpc CreateSecret (CreateSecretRequest) returns (CreateSecretResponse);
+    rpc DeleteSecret (DeleteSecretRequest) returns (DeleteSecretResponse);
+    rpc CreateOrGetSecret (CreateOrGetSecretRequest) returns (CreateOrGetSecretResponse);
 }
 
-message PseudoKey {
-    string key = 1;
+message Secret {
+    string id = 1;
+    string type = 2;
+    string content = 3;
 }
 
-message GetKeyRequest {
-    string keyId = 1;
+enum Privilege {
+    PSEUDONYMIZE = 0;
+    DE_PSEUDONYMIZE = 1;
+}
+
+enum Valuation {
+    OPEN = 0;
+    INTERNAL = 3;
+    SHIELDED = 6;
+    SENSITIVE = 9;
+}
+
+enum DatasetState {
+    RAW = 0;
+    INPUT = 1;
+    PROCESSED = 2;
+    OUTPUT = 3;
+    PRODUCT = 4;
+    OTHER = 5;
+}
+
+message GetSecretRequest {
+    string secretId = 1;
     string type = 2;
     string namespace = 3;
-    string state = 4;
-    string valuation = 5;
-    string privilege = 6;
+    DatasetState state = 4;
+    Valuation valuation = 5;
+    Privilege privilege = 6;
 }
 
-message GetKeyResponse {
-    string keyId = 1;
-    string type = 2;
-    PseudoKey key = 3;
+message GetSecretResponse {
+    Secret secret = 1;
 }
 
-message CreateKeyRequest {
-    string keyId = 1;
-    PseudoKey key = 2;
+message CreateSecretRequest {
+    Secret secret = 1;
 }
 
-message CreateKeyResponse {
-    string keyId = 1;
+message CreateSecretResponse {
+    string secretId = 1;
 }
 
-message DeleteKeyRequest {
-    string keyId = 1;
+message DeleteSecretRequest {
+    string secretId = 1;
 }
 
-message DeleteKeyResponse {
+message DeleteSecretResponse {
     int32 rowsAffected = 1;
 }
 
-message CreateOrGetKeyRequest {
-    string keyId = 1;
+message CreateOrGetSecretRequest {
+    string secretId = 1;
     string type = 2;
     string namespace = 3;
-    string state = 4;
-    string valuation = 5;
-    string privilege = 6;
+    DatasetState state = 4;
+    Valuation valuation = 5;
+    Privilege privilege = 6;
 }
 
-message CreateOrGetKeyResponse {
-    string keyId = 1;
-    string type = 2;
-    PseudoKey key = 3;
+message CreateOrGetSecretResponse {
+    Secret secret = 1;
 }
