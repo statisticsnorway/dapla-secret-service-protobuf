@@ -7,6 +7,7 @@ service SecretService {
     rpc GetKey (GetKeyRequest) returns (GetKeyResponse);
     rpc CreateKey (CreateKeyRequest) returns (CreateKeyResponse);
     rpc DeleteKey (DeleteKeyRequest) returns (DeleteKeyResponse);
+    rpc CreateOrGetKey (CreateOrGetKeyRequest) returns (CreateOrGetKeyResponse);
 }
 
 message PseudoKey {
@@ -15,11 +16,17 @@ message PseudoKey {
 
 message GetKeyRequest {
     string keyId = 1;
+    string type = 2;
+    string namespace = 3;
+    string state = 4;
+    string valuation = 5;
+    string privilege = 6;
 }
 
 message GetKeyResponse {
     string keyId = 1;
-    PseudoKey key = 2;
+    string type = 2;
+    PseudoKey key = 3;
 }
 
 message CreateKeyRequest {
@@ -37,4 +44,19 @@ message DeleteKeyRequest {
 
 message DeleteKeyResponse {
     int32 rowsAffected = 1;
+}
+
+message CreateOrGetKeyRequest {
+    string keyId = 1;
+    string type = 2;
+    string namespace = 3;
+    string state = 4;
+    string valuation = 5;
+    string privilege = 6;
+}
+
+message CreateOrGetKeyResponse {
+    string keyId = 1;
+    string type = 2;
+    PseudoKey key = 3;
 }
