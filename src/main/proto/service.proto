@@ -21,21 +21,21 @@ message GetSecretsRequest {
 }
 
 message GetSecretsResponse {
-    repeated Secret secret = 1;
+    repeated Secret secrets = 1;
 }
 
-message SecretDesc {
+message SecretRef {
     string id = 1;
     string type = 2;
 }
 
 message CreateOrGetSecretsRequest {
     string dataset = 1;
-    repeated string SecretDesc = 2;
+    repeated SecretRef secretRefs = 2;
 }
 
 message CreateOrGetSecretsResponse {
-    repeated Secret secret = 1;
+    repeated Secret secrets = 1;
 }
 
 message CreateSecretRequest {
