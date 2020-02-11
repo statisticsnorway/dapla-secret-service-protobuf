@@ -4,10 +4,10 @@ option java_multiple_files = true;
 option java_package = "no.ssb.dapla.secret.service.protobuf";
 
 service SecretService {
-    rpc GetSecret (GetSecretRequest) returns (GetSecretResponse);
-    rpc CreateSecret (CreateSecretRequest) returns (CreateSecretResponse);
-    rpc DeleteSecret (DeleteSecretRequest) returns (DeleteSecretResponse);
-    rpc CreateOrGetSecret (CreateOrGetSecretRequest) returns (CreateOrGetSecretResponse);
+    rpc getSecrets (GetSecretsRequest) returns (GetSecretsResponse);
+    rpc createOrGetSecrets (CreateOrGetSecretsRequest) returns (CreateOrGetSecretsResponse);
+    rpc createSecret (CreateSecretRequest) returns (CreateSecretResponse);
+    rpc deleteSecret (DeleteSecretRequest) returns (DeleteSecretResponse);
 }
 
 message Secret {
@@ -16,38 +16,26 @@ message Secret {
     string content = 3;
 }
 
-enum Privilege {
-    PSEUDONYMIZE = 0;
-    DE_PSEUDONYMIZE = 1;
+message GetSecretsRequest {
+    string dataset = 1;
 }
 
-enum Valuation {
-    OPEN = 0;
-    INTERNAL = 3;
-    SHIELDED = 6;
-    SENSITIVE = 9;
+message GetSecretsResponse {
+    repeated Secret secret = 1;
 }
 
-enum DatasetState {
-    RAW = 0;
-    INPUT = 1;
-    PROCESSED = 2;
-    OUTPUT = 3;
-    PRODUCT = 4;
-    OTHER = 5;
-}
-
-message GetSecretRequest {
-    string secretId = 1;
+message SecretDesc {
+    string id = 1;
     string type = 2;
-    string namespace = 3;
-    DatasetState state = 4;
-    Valuation valuation = 5;
-    Privilege privilege = 6;
 }
 
-message GetSecretResponse {
-    Secret secret = 1;
+message CreateOrGetSecretsRequest {
+    string dataset = 1;
+    repeated string SecretDesc = 2;
+}
+
+message CreateOrGetSecretsResponse {
+    repeated Secret secret = 1;
 }
 
 message CreateSecretRequest {
@@ -64,17 +52,4 @@ message DeleteSecretRequest {
 
 message DeleteSecretResponse {
     int32 rowsAffected = 1;
-}
-
-message CreateOrGetSecretRequest {
-    string secretId = 1;
-    string type = 2;
-    string namespace = 3;
-    DatasetState state = 4;
-    Valuation valuation = 5;
-    Privilege privilege = 6;
-}
-
-message CreateOrGetSecretResponse {
-    Secret secret = 1;
 }
