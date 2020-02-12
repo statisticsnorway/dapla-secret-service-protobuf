@@ -31,7 +31,9 @@ message SecretRef {
 
 message CreateOrGetSecretsRequest {
     string datasetPath = 1;
-    repeated SecretRef secretRefs = 2;
+    string datasetState = 2;
+    string datasetValuation = 3;
+    repeated SecretRef secretRefs = 4;
 }
 
 message CreateOrGetSecretsResponse {
