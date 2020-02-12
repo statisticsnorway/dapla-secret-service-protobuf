@@ -17,7 +17,7 @@ message Secret {
 }
 
 message GetSecretsRequest {
-    string dataset = 1;
+    string datasetPath = 1;
 }
 
 message GetSecretsResponse {
@@ -30,7 +30,7 @@ message SecretRef {
 }
 
 message CreateOrGetSecretsRequest {
-    string dataset = 1;
+    string datasetPath = 1;
     repeated SecretRef secretRefs = 2;
 }
 
