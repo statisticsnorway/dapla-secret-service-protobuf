@@ -13,7 +13,7 @@ service SecretService {
 message Secret {
     string id = 1;
     string type = 2;
-    string content = 3;
+    bytes content = 3;
 }
 
 message GetSecretsRequest {
